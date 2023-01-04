@@ -1,3 +1,5 @@
 name: qsharp-env
+channels:
+  - quantum-engineering
 dependencies:
   - qsharp
