@@ -1,7 +1,0 @@
-name: qsharp-env
-channels:
-  - microsoft
-dependencies:
-  - qsharp
-  - notebook
-  - iqsharp
