@@ -1,0 +1,5 @@
+qsharp
+qiskit
+matplotlib
+seaborn
+plotly
