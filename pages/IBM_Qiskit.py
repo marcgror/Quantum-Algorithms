@@ -62,7 +62,9 @@ with st.expander('Single-qubit gate selector'):
     fig_qsphere = plot_state_qsphere(statevector, figsize=(4,4))
     fig_block = plot_bloch_multivector(statevector, figsize=(1,1))
     # Display the circuit
+    tab1.divider()
     fig_circuit = qc.draw(output='mpl', scale=0.75)
+    tab1.markdown('**Circuit**')
     tab1.pyplot(fig_circuit, use_container_width=False)
     # Display the 
     tab2.pyplot(fig_qsphere, use_container_width=False)
@@ -71,8 +73,12 @@ with st.expander('Single-qubit gate selector'):
     col1, col2 = tab2.columns(2)
     col1.pyplot(fig_block, use_container_width=False)
     # Create a Figure for the bit values
+    counts_df = pd.DataFrame()
+    counts_df['keys'] = counts.keys()
+    counts_df['values'] = counts.values()
     fig_hist_counts = go.Figure()
-    fig_hist_counts.add_trace(go.Bar(x=list(counts.keys()), y=list(counts.values())))
-    fig_hist_counts.update_xaxes(title='Bits', tickfont_size=15, titlefont=dict(size=15), )
+    fig_hist_counts.add_trace(go.Bar(x=list(counts_df['keys']), y=list(counts_df['values']), name='Counts', customdata=counts_df, hovertemplate='<b> Value: </b> %{customdata[0]} <br> <b>Counts: </b> %{customdata[1]}'))
+    fig_hist_counts.update_xaxes(title='Bits', tickfont_size=15, titlefont=dict(size=15), dtick=1)
     fig_hist_counts.update_yaxes(title='Counts', tickfont_size=15, titlefont=dict(size=15))
+    fig_hist_counts.update_layout(hoverlabel=dict(font_size=16))
     col2.plotly_chart(fig_hist_counts)
